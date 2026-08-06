@@ -17,6 +17,7 @@ import { Route as AuthenticatedAgendaRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedBibliotecaRouteImport } from './routes/_authenticated/biblioteca'
 import { Route as AuthenticatedCalendarioRouteImport } from './routes/_authenticated/calendario'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedExamenesRouteImport } from './routes/_authenticated/examenes'
 import { Route as AuthenticatedIaRouteImport } from './routes/_authenticated/ia'
 import { Route as AuthenticatedPlaneacionesRouteImport } from './routes/_authenticated/planeaciones'
 import { Route as AuthenticatedProyectosRouteImport } from './routes/_authenticated/proyectos'
@@ -61,6 +62,11 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedExamenesRoute = AuthenticatedExamenesRouteImport.update({
+  id: '/examenes',
+  path: '/examenes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedIaRoute = AuthenticatedIaRouteImport.update({
   id: '/ia',
   path: '/ia',
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/calendario': typeof AuthenticatedCalendarioRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/examenes': typeof AuthenticatedExamenesRoute
   '/ia': typeof AuthenticatedIaRoute
   '/planeaciones': typeof AuthenticatedPlaneacionesRoute
   '/proyectos': typeof AuthenticatedProyectosRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/calendario': typeof AuthenticatedCalendarioRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/examenes': typeof AuthenticatedExamenesRoute
   '/ia': typeof AuthenticatedIaRoute
   '/planeaciones': typeof AuthenticatedPlaneacionesRoute
   '/proyectos': typeof AuthenticatedProyectosRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/_authenticated/biblioteca': typeof AuthenticatedBibliotecaRoute
   '/_authenticated/calendario': typeof AuthenticatedCalendarioRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/examenes': typeof AuthenticatedExamenesRoute
   '/_authenticated/ia': typeof AuthenticatedIaRoute
   '/_authenticated/planeaciones': typeof AuthenticatedPlaneacionesRoute
   '/_authenticated/proyectos': typeof AuthenticatedProyectosRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/biblioteca'
     | '/calendario'
     | '/dashboard'
+    | '/examenes'
     | '/ia'
     | '/planeaciones'
     | '/proyectos'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/biblioteca'
     | '/calendario'
     | '/dashboard'
+    | '/examenes'
     | '/ia'
     | '/planeaciones'
     | '/proyectos'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/_authenticated/biblioteca'
     | '/_authenticated/calendario'
     | '/_authenticated/dashboard'
+    | '/_authenticated/examenes'
     | '/_authenticated/ia'
     | '/_authenticated/planeaciones'
     | '/_authenticated/proyectos'
@@ -231,6 +243,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/examenes': {
+      id: '/_authenticated/examenes'
+      path: '/examenes'
+      fullPath: '/examenes'
+      preLoaderRoute: typeof AuthenticatedExamenesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/ia': {
       id: '/_authenticated/ia'
       path: '/ia'
@@ -268,6 +287,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedBibliotecaRoute: typeof AuthenticatedBibliotecaRoute
   AuthenticatedCalendarioRoute: typeof AuthenticatedCalendarioRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedExamenesRoute: typeof AuthenticatedExamenesRoute
   AuthenticatedIaRoute: typeof AuthenticatedIaRoute
   AuthenticatedPlaneacionesRoute: typeof AuthenticatedPlaneacionesRoute
   AuthenticatedProyectosRoute: typeof AuthenticatedProyectosRoute
@@ -280,6 +300,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedBibliotecaRoute: AuthenticatedBibliotecaRoute,
   AuthenticatedCalendarioRoute: AuthenticatedCalendarioRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedExamenesRoute: AuthenticatedExamenesRoute,
   AuthenticatedIaRoute: AuthenticatedIaRoute,
   AuthenticatedPlaneacionesRoute: AuthenticatedPlaneacionesRoute,
   AuthenticatedProyectosRoute: AuthenticatedProyectosRoute,
