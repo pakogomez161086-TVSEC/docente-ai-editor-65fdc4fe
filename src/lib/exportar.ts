@@ -2,7 +2,7 @@ export type SeccionExport = {
   titulo: string;
   parrafos?: (string | null | undefined)[];
   lista?: (string | null | undefined)[];
-  tabla?: { encabezados: string[]; filas: (string | number | null | undefined)[][] };
+  tabla?: { encabezados: string[]; filas: (string | number | null | undefined)[][] } | undefined;
 };
 
 export type DocumentoExport = {

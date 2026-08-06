@@ -291,6 +291,10 @@ function Bloque({ titulo, texto }: { titulo: string; texto: string | null }) {
 
 type PlaneacionRow = {
   titulo: string;
+  listas_cotejo?: unknown;
+  adecuaciones?: string | null;
+  inclusion?: string | null;
+  transversalidad?: string | null;
   grado: number | null;
   tomo: number | null;
   campo_formativo: string | null;
@@ -303,12 +307,8 @@ type PlaneacionRow = {
   etapas: unknown;
   evaluacion: unknown;
   rubricas: unknown;
-  listas_cotejo: unknown;
   productos: string[];
   materiales: string[];
-  adecuaciones: string | null;
-  inclusion: string | null;
-  transversalidad: string | null;
 };
 
 function documentoPlaneacion(pl: PlaneacionRow): DocumentoExport {
