@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
+import { exportarPDF, exportarWord, type DocumentoExport } from "@/lib/exportar";
 import { generarPlaneacion } from "@/lib/ia.functions";
 
 export const Route = createFileRoute("/_authenticated/planeaciones")({
@@ -255,15 +256,13 @@ function PlaneacionesPage() {
                     <Button asChild size="sm" variant="secondary">
                       <a href={`/sesiones?planeacion=${pl.id}`}>Generar sesiones</a>
                     </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => {
-                        window.print();
-                      }}
-                    >
+                    <Button size="sm" variant="outline" onClick={() => exportarPDF(documentoPlaneacion(pl))}>
                       <FileDown className="mr-1 h-4 w-4" />
-                      Exportar / imprimir
+                      Exportar PDF
+                    </Button>
+                    <Button size="sm" variant="outline" onClick={() => exportarWord(documentoPlaneacion(pl))}>
+                      <FileDown className="mr-1 h-4 w-4" />
+                      Exportar Word
                     </Button>
                     <Button size="sm" variant="ghost" onClick={() => eliminar.mutate(pl.id)}>
                       <Trash2 className="mr-1 h-4 w-4" />
@@ -288,4 +287,99 @@ function Bloque({ titulo, texto }: { titulo: string; texto: string | null }) {
       <p className="whitespace-pre-line">{texto}</p>
     </div>
   );
+}
+
+type PlaneacionRow = {
+  titulo: string;
+  grado: number | null;
+  tomo: number | null;
+  campo_formativo: string | null;
+  disciplina: string | null;
+  metodologia: string | null;
+  proposito: string | null;
+  inicio: string | null;
+  desarrollo: string | null;
+  cierre: string | null;
+  etapas: unknown;
+  evaluacion: unknown;
+  rubricas: unknown;
+  listas_cotejo: unknown;
+  productos: string[];
+  materiales: string[];
+  adecuaciones: string | null;
+  inclusion: string | null;
+  transversalidad: string | null;
+};
+
+function documentoPlaneacion(pl: PlaneacionRow): DocumentoExport {
+  const etapas = (Array.isArray(pl.etapas) ? pl.etapas : []) as {
+    numero?: number;
+    nombre?: string;
+    descripcion?: string;
+    actividades?: string[];
+  }[];
+  const rubricas = (Array.isArray(pl.rubricas) ? pl.rubricas : []) as {
+    criterio?: string;
+    excelente?: string;
+    satisfactorio?: string;
+    enProceso?: string;
+  }[];
+  const cotejo = (Array.isArray(pl.listas_cotejo) ? pl.listas_cotejo : []) as { indicador?: string }[];
+  const evaluacion = (pl.evaluacion ?? {}) as {
+    diagnostica?: string;
+    formativa?: string;
+    sumativa?: string;
+  };
+
+  return {
+    titulo: pl.titulo,
+    subtitulo: [pl.campo_formativo, pl.disciplina].filter(Boolean).join(" · ") || undefined,
+    metadatos: [
+      { etiqueta: "Grado", valor: pl.grado ? `${pl.grado}°` : null },
+      { etiqueta: "Tomo", valor: pl.tomo },
+      { etiqueta: "Metodología", valor: pl.metodologia },
+    ],
+    secciones: [
+      { titulo: "Propósito", parrafos: [pl.proposito] },
+      { titulo: "Inicio", parrafos: [pl.inicio] },
+      { titulo: "Desarrollo", parrafos: [pl.desarrollo] },
+      { titulo: "Cierre", parrafos: [pl.cierre] },
+      {
+        titulo: "Etapas de la metodología por proyectos",
+        tabla: etapas.length
+          ? {
+              encabezados: ["Etapa", "Nombre", "Descripción", "Actividades"],
+              filas: etapas.map((e, i) => [
+                e.numero ?? i + 1,
+                e.nombre,
+                e.descripcion,
+                (e.actividades ?? []).join(" • "),
+              ]),
+            }
+          : undefined,
+      },
+      {
+        titulo: "Evaluación",
+        parrafos: [
+          evaluacion.diagnostica ? `Diagnóstica: ${evaluacion.diagnostica}` : null,
+          evaluacion.formativa ? `Formativa: ${evaluacion.formativa}` : null,
+          evaluacion.sumativa ? `Sumativa: ${evaluacion.sumativa}` : null,
+        ],
+      },
+      {
+        titulo: "Rúbrica",
+        tabla: rubricas.length
+          ? {
+              encabezados: ["Criterio", "Excelente", "Satisfactorio", "En proceso"],
+              filas: rubricas.map((r) => [r.criterio, r.excelente, r.satisfactorio, r.enProceso]),
+            }
+          : undefined,
+      },
+      { titulo: "Lista de cotejo", lista: cotejo.map((c) => c.indicador) },
+      { titulo: "Productos", lista: pl.productos ?? [] },
+      { titulo: "Materiales", lista: pl.materiales ?? [] },
+      { titulo: "Adecuaciones e inclusión", parrafos: [pl.adecuaciones, pl.inclusion] },
+      { titulo: "Transversalidad", parrafos: [pl.transversalidad] },
+    ],
+  };
 }

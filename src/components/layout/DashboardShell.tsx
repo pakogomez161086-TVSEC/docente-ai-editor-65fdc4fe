@@ -3,6 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { LogOut } from "lucide-react";
 import type { ReactNode } from "react";
 
+import { CopilotIA } from "@/components/CopilotIA";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { AppSidebar } from "@/components/layout/AppSidebar";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -66,6 +67,7 @@ export function DashboardShell({ titulo, subtitulo, acciones, children }: Props)
           </header>
           <main className="flex-1 space-y-6 p-4 sm:p-6">{children}</main>
         </div>
+        <CopilotIA />
       </div>
     </SidebarProvider>
   );

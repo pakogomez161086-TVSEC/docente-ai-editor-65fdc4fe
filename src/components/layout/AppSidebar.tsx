@@ -4,6 +4,7 @@ import {
   CalendarDays,
   CalendarRange,
   ClipboardList,
+  FileText,
   LayoutDashboard,
   Library,
   NotebookPen,
@@ -34,6 +35,7 @@ const pedagogia: Item[] = [
   { title: "IA Pedagógica", url: "/ia", icon: Sparkles },
   { title: "Planeaciones", url: "/planeaciones", icon: NotebookPen },
   { title: "Sesiones", url: "/sesiones", icon: ClipboardList },
+  { title: "Exámenes", url: "/examenes", icon: FileText },
 ];
 
 const organizacion: Item[] = [
