@@ -41,3 +41,30 @@ export async function llamarGemini(prompt: string, systemPrompt = SYSTEM_PEDAGOG
     throw new Error("La IA devolvió una respuesta que no se pudo interpretar.");
   }
 }
+
+export async function llamarGeminiTexto(
+  mensajes: { role: "user" | "assistant"; content: string }[],
+  systemPrompt: string,
+): Promise<string> {
+  const key = process.env["LOVABLE_API_KEY"];
+  if (!key) throw new Error("Falta la configuración de IA (LOVABLE_API_KEY).");
+
+  const res = await fetch(GATEWAY, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Lovable-API-Key": key },
+    body: JSON.stringify({
+      model: "google/gemini-3.6-flash",
+      messages: [{ role: "system", content: systemPrompt }, ...mensajes],
+    }),
+  });
+
+  if (!res.ok) {
+    const detalle = await res.text();
+    if (res.status === 429) throw new Error("Límite de solicitudes de IA alcanzado. Intenta de nuevo en un momento.");
+    if (res.status === 402) throw new Error("Se agotaron los créditos de IA del espacio de trabajo.");
+    throw new Error(`Error de IA [${res.status}]: ${detalle}`);
+  }
+
+  const data = (await res.json()) as { choices?: { message?: { content?: string } }[] };
+  return data.choices?.[0]?.message?.content?.trim() ?? "No pude generar una respuesta.";
+}
