@@ -1,14 +1,14 @@
 export type SeccionExport = {
   titulo: string;
-  parrafos?: (string | null | undefined)[];
-  lista?: (string | null | undefined)[];
+  parrafos?: (string | null | undefined)[] | undefined;
+  lista?: (string | null | undefined)[] | undefined;
   tabla?: { encabezados: string[]; filas: (string | number | null | undefined)[][] } | undefined;
 };
 
 export type DocumentoExport = {
   titulo: string;
-  subtitulo?: string;
-  metadatos?: { etiqueta: string; valor: string | number | null | undefined }[];
+  subtitulo?: string | undefined;
+  metadatos?: { etiqueta: string; valor: string | number | null | undefined }[] | undefined;
   secciones: SeccionExport[];
 };
 
