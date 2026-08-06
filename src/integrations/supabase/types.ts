@@ -277,6 +277,63 @@ export type Database = {
           },
         ]
       }
+      examenes: {
+        Row: {
+          campo_formativo: string | null
+          clave_respuestas: Json
+          created_at: string
+          dificultad: string
+          disciplina: string | null
+          generado_por_ia: boolean
+          grado: number | null
+          id: string
+          instrucciones: string | null
+          num_reactivos: number
+          pda: string | null
+          reactivos: Json
+          titulo: string
+          trimestre: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          campo_formativo?: string | null
+          clave_respuestas?: Json
+          created_at?: string
+          dificultad?: string
+          disciplina?: string | null
+          generado_por_ia?: boolean
+          grado?: number | null
+          id?: string
+          instrucciones?: string | null
+          num_reactivos?: number
+          pda?: string | null
+          reactivos?: Json
+          titulo: string
+          trimestre?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          campo_formativo?: string | null
+          clave_respuestas?: Json
+          created_at?: string
+          dificultad?: string
+          disciplina?: string | null
+          generado_por_ia?: boolean
+          grado?: number | null
+          id?: string
+          instrucciones?: string | null
+          num_reactivos?: number
+          pda?: string | null
+          reactivos?: Json
+          titulo?: string
+          trimestre?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       landing_config: {
         Row: {
           activo: boolean
