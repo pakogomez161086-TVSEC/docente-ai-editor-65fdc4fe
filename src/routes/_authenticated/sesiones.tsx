@@ -120,8 +120,65 @@ function SesionesPage() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  const planActual = planeaciones.data?.find((p) => p.id === planSel);
+  const lista = sesiones.data ?? [];
+
+  function documentoSesiones(): DocumentoExport {
+    return {
+      titulo: planActual?.titulo ?? "Secuencia de sesiones",
+      subtitulo: "Secuencia didáctica de sesiones · Nueva Escuela Mexicana",
+      metadatos: [
+        { etiqueta: "Grado", valor: planActual?.grado },
+        { etiqueta: "Campo formativo", valor: planActual?.campo_formativo },
+        { etiqueta: "Disciplina", valor: planActual?.disciplina },
+        { etiqueta: "Metodología", valor: planActual?.metodologia },
+        { etiqueta: "Sesiones", valor: lista.length },
+      ],
+      secciones: lista.map((s) => ({
+        titulo: `Sesión ${s.numero}: ${s.titulo}${s.tiempo ? ` (${s.tiempo})` : ""}`,
+        parrafos: [
+          s.inicio ? `Inicio: ${s.inicio}` : null,
+          s.desarrollo ? `Desarrollo: ${s.desarrollo}` : null,
+          s.cierre ? `Cierre: ${s.cierre}` : null,
+          s.evaluacion ? `Evaluación: ${s.evaluacion}` : null,
+        ],
+        lista: [
+          s.materiales.length ? `Materiales: ${s.materiales.join(", ")}` : null,
+          s.instrumentos.length ? `Instrumentos: ${s.instrumentos.join(", ")}` : null,
+        ],
+      })),
+    };
+  }
+
+  function exportar(tipo: "pdf" | "word") {
+    if (lista.length === 0) {
+      toast.error("No hay sesiones para exportar");
+      return;
+    }
+    try {
+      const doc = documentoSesiones();
+      if (tipo === "pdf") exportarPDF(doc);
+      else exportarWord(doc);
+    } catch (e) {
+      toast.error((e as Error).message);
+    }
+  }
+
   return (
-    <DashboardShell titulo="Sesiones" subtitulo="Secuencias didácticas por planeación">
+    <DashboardShell
+      titulo="Sesiones"
+      subtitulo="Secuencias didácticas por planeación"
+      acciones={
+        <div className="hidden gap-2 sm:flex">
+          <Button variant="outline" size="sm" onClick={() => exportar("pdf")} disabled={lista.length === 0}>
+            <FileDown className="mr-1 h-4 w-4" /> PDF
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => exportar("word")} disabled={lista.length === 0}>
+            <FileText className="mr-1 h-4 w-4" /> Word
+          </Button>
+        </div>
+      }
+    >
       <Card className="border-border/70 shadow-soft">
         <CardHeader className="pb-3">
           <CardTitle className="text-base">Generar sesiones con IA</CardTitle>
