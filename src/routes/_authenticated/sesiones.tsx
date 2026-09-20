@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { motion } from "motion/react";
-import { ClipboardList, Loader2, Sparkles } from "lucide-react";
+import { ClipboardList, FileDown, FileText, Loader2, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -15,6 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { generarSesiones } from "@/lib/ia.functions";
+import { exportarPDF, exportarWord, type DocumentoExport } from "@/lib/exportar";
 
 export const Route = createFileRoute("/_authenticated/sesiones")({
   validateSearch: z.object({ planeacion: z.string().optional() }),
