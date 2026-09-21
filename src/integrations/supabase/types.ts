@@ -62,6 +62,47 @@ export type Database = {
         }
         Relationships: []
       }
+      alumnos: {
+        Row: {
+          contacto_tutor: string | null
+          created_at: string
+          docente_id: string
+          grupo_id: string
+          id: string
+          nombre_completo: string
+          numero_lista: number | null
+          tutor: string | null
+        }
+        Insert: {
+          contacto_tutor?: string | null
+          created_at?: string
+          docente_id: string
+          grupo_id: string
+          id?: string
+          nombre_completo: string
+          numero_lista?: number | null
+          tutor?: string | null
+        }
+        Update: {
+          contacto_tutor?: string | null
+          created_at?: string
+          docente_id?: string
+          grupo_id?: string
+          id?: string
+          nombre_completo?: string
+          numero_lista?: number | null
+          tutor?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "alumnos_grupo_id_fkey"
+            columns: ["grupo_id"]
+            isOneToOne: false
+            referencedRelation: "grupos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       base_conocimiento: {
         Row: {
           campo_formativo: string | null
@@ -212,6 +253,50 @@ export type Database = {
         }
         Relationships: []
       }
+      calificaciones: {
+        Row: {
+          alumno_id: string
+          calificacion: number
+          campo_formativo: string
+          created_at: string
+          disciplina: string
+          docente_id: string
+          id: string
+          observaciones: string | null
+          trimestre: number
+        }
+        Insert: {
+          alumno_id: string
+          calificacion: number
+          campo_formativo: string
+          created_at?: string
+          disciplina: string
+          docente_id: string
+          id?: string
+          observaciones?: string | null
+          trimestre: number
+        }
+        Update: {
+          alumno_id?: string
+          calificacion?: number
+          campo_formativo?: string
+          created_at?: string
+          disciplina?: string
+          docente_id?: string
+          id?: string
+          observaciones?: string | null
+          trimestre?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calificaciones_alumno_id_fkey"
+            columns: ["alumno_id"]
+            isOneToOne: false
+            referencedRelation: "alumnos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       campos_formativos: {
         Row: {
           color: string | null
@@ -331,6 +416,33 @@ export type Database = {
           trimestre?: number | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      grupos: {
+        Row: {
+          ciclo: string
+          created_at: string
+          docente_id: string
+          grado: number
+          id: string
+          nombre: string
+        }
+        Insert: {
+          ciclo?: string
+          created_at?: string
+          docente_id: string
+          grado: number
+          id?: string
+          nombre: string
+        }
+        Update: {
+          ciclo?: string
+          created_at?: string
+          docente_id?: string
+          grado?: number
+          id?: string
+          nombre?: string
         }
         Relationships: []
       }

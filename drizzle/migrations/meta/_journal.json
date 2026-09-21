@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789965016363,
+      "tag": "0000_grupos_alumnos_calificaciones_admin",
+      "breakpoints": true
+    }
+  ]
+}
