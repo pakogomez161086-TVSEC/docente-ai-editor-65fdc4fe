@@ -1,15 +1,18 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
+  BarChart3,
   BookOpen,
   CalendarDays,
   CalendarRange,
   ClipboardList,
+  FileBadge,
   FileText,
   LayoutDashboard,
   Library,
   NotebookPen,
   Settings,
   Sparkles,
+  Users,
 } from "lucide-react";
 
 import { BrandLogo } from "@/components/brand/BrandLogo";
