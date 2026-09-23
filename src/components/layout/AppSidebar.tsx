@@ -41,6 +41,12 @@ const pedagogia: Item[] = [
   { title: "Exámenes", url: "/examenes", icon: FileText },
 ];
 
+const seguimiento: Item[] = [
+  { title: "Grupos", url: "/grupos", icon: Users },
+  { title: "Analítica", url: "/analitica", icon: BarChart3 },
+  { title: "Boletas e informes", url: "/boletas", icon: FileBadge },
+];
+
 const organizacion: Item[] = [
   { title: "Agenda Docente", url: "/agenda", icon: CalendarDays },
   { title: "Calendario Escolar", url: "/calendario", icon: CalendarRange },
