@@ -1,15 +1,18 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
+  BarChart3,
   BookOpen,
   CalendarDays,
   CalendarRange,
   ClipboardList,
+  FileBadge,
   FileText,
   LayoutDashboard,
   Library,
   NotebookPen,
   Settings,
   Sparkles,
+  Users,
 } from "lucide-react";
 
 import { BrandLogo } from "@/components/brand/BrandLogo";
@@ -36,6 +39,12 @@ const pedagogia: Item[] = [
   { title: "Planeaciones", url: "/planeaciones", icon: NotebookPen },
   { title: "Sesiones", url: "/sesiones", icon: ClipboardList },
   { title: "Exámenes", url: "/examenes", icon: FileText },
+];
+
+const seguimiento: Item[] = [
+  { title: "Grupos", url: "/grupos", icon: Users },
+  { title: "Analítica", url: "/analitica", icon: BarChart3 },
+  { title: "Boletas e informes", url: "/boletas", icon: FileBadge },
 ];
 
 const organizacion: Item[] = [
@@ -78,6 +87,7 @@ export function AppSidebar() {
       <SidebarContent>
         {renderGroup("General", principal)}
         {renderGroup("Pedagogía", pedagogia)}
+        {renderGroup("Seguimiento", seguimiento)}
         {renderGroup("Organización", organizacion)}
       </SidebarContent>
     </Sidebar>
