@@ -39,7 +39,7 @@ export const Route = createFileRoute("/_authenticated/analitica")({
   component: AnaliticaPage,
 });
 
-const COLORES = ["hsl(var(--primary))", "hsl(var(--chart-2))", "hsl(var(--chart-3))", "hsl(var(--chart-4))", "hsl(var(--chart-5))"];
+const COLORES = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)", "var(--chart-5)"];
 
 function AnaliticaPage() {
   const [grupoSel, setGrupoSel] = useState("todos");
@@ -179,7 +179,7 @@ function AnaliticaPage() {
                   <XAxis dataKey="nombre" fontSize={11} />
                   <YAxis domain={[5, 10]} fontSize={11} />
                   <Tooltip />
-                  <Bar dataKey="promedio" fill="hsl(var(--primary))" radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="promedio" fill="var(--chart-1)" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -196,7 +196,7 @@ function AnaliticaPage() {
                   <XAxis type="number" domain={[5, 10]} fontSize={11} />
                   <YAxis type="category" dataKey="nombre" width={110} fontSize={11} />
                   <Tooltip />
-                  <Bar dataKey="promedio" fill="hsl(var(--chart-2))" radius={[0, 6, 6, 0]} />
+                  <Bar dataKey="promedio" fill="var(--chart-2)" radius={[0, 6, 6, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -213,7 +213,7 @@ function AnaliticaPage() {
                   <XAxis dataKey="nombre" fontSize={11} />
                   <YAxis domain={[5, 10]} fontSize={11} />
                   <Tooltip />
-                  <Line type="monotone" dataKey="promedio" stroke="hsl(var(--primary))" strokeWidth={3} />
+                  <Line type="monotone" dataKey="promedio" stroke="var(--chart-1)" strokeWidth={3} />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
