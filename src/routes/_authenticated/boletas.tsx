@@ -333,7 +333,7 @@ function BoletasPage() {
   );
 }
 
-function Bloque({ titulo, items }: { titulo: string; items?: string[] }) {
+function Bloque({ titulo, items }: { titulo: string; items?: string[] | undefined }) {
   if (!items?.length) return null;
   return (
     <div>
