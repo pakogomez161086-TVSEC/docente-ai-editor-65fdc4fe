@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Sparkles,
   Users,
+  Zap,
 } from "lucide-react";
 
 import { BrandLogo } from "@/components/brand/BrandLogo";
@@ -113,6 +114,15 @@ const planes = [
   },
 ];
 
+const bannerMensajes = [
+  "¡7 días de prueba gratis, sin tarjeta!",
+  "Alineado a la Nueva Escuela Mexicana · Fase 6",
+  "Planeaciones ilimitadas con IA en un clic",
+  "Exporta a PDF y Word con formato institucional",
+  "Nuevo: generador de exámenes con banco de reactivos",
+  "Agenda docente y calendario escolar 2026-2027",
+];
+
 const testimonios = [
   {
     nombre: "Mtra. Adriana Ruiz",
@@ -174,6 +184,24 @@ function Landing() {
           </div>
         </div>
       </header>
+
+      <section className="gradient-brand relative overflow-hidden">
+        <div className="animate-marquee flex w-max items-center py-2.5 hover:[animation-play-state:paused]">
+          {[0, 1].map((copia) => (
+            <div key={copia} aria-hidden={copia === 1} className="flex items-center gap-12 pr-12">
+              {bannerMensajes.map((mensaje) => (
+                <span
+                  key={mensaje}
+                  className="flex items-center gap-2.5 whitespace-nowrap text-sm font-semibold text-brand-foreground"
+                >
+                  <Zap className="animate-brillo-banner h-4 w-4 shrink-0 text-yellow-accent" />
+                  {mensaje}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="relative overflow-hidden">
         <div className="gradient-aurora pointer-events-none absolute inset-0 opacity-70" aria-hidden />
