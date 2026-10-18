@@ -229,3 +229,30 @@
   backdrop-filter: blur(18px);
   border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
 }
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes brillo-banner {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@utility animate-brillo-banner {
+  animation: brillo-banner 2.4s ease-in-out infinite;
+}

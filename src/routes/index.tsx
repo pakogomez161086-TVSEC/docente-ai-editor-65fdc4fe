@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Sparkles,
   Users,
+  Zap,
 } from "lucide-react";
 
 import { BrandLogo } from "@/components/brand/BrandLogo";
